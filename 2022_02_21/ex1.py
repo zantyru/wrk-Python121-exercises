@@ -11,6 +11,7 @@ class MaterialBox(Box):
         self.material = str(material)
         self.color = str(color)
 
+
 if __name__ == '__main__':
 
     box = Box(10, 50, 5)
