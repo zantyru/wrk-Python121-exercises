@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Тестируем Flask</title>
+</head>
+<body>
+    <p>Работает!</p>
+    {% if message_text %}
+    <p>Сообщение: {{ message_text }}</p>
+    {% else %}
+    <p>Сообщение не передано.</p>
+    {% endif %}
+
+    <a href="/main/caution">Caution</a>
+    <a href="/main/attention">Attention</a>
+    <a href="/main/warning">Warning</a>
+</body>
+</html>
