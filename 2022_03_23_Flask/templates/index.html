@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Работа с числами</title>
+</head>
+<body>
+
+    {% if numbers %}
+    <p>Числовые значения:
+        {% for n in numbers %}
+        {{ n }},
+        {% endfor %}
+    </p>
+    {% else %}
+    <p>Числовых значений нет.</p>
+    {% endif %}
+
+    <p>
+        <a href="/save/1">Записать 1</a><br>
+        <a href="/save/18">Записать 18</a>
+    </p>
+
+    <p>
+        <a href="/load">Загрузить числа</a>
+    </p>
+
+</body>
+</html>
