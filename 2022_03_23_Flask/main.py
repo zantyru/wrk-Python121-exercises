@@ -3,20 +3,25 @@ from flask import Flask, render_template
 import db
 
 
+# Вычисляем рабочую директорию (где лежит это файл `main.py`) и задаём путь к файлу сохранения
 WORK_DIR = Path(__file__).absolute().parent
 DB_FILENAME = WORK_DIR / Path("numbers.txt")
 
+# Создание экземпляра приложения Flask
 app = Flask(__name__)
+
+# Список чисел, который загружен из файла
 list_of_integers = []
+
+
+# *** Обработчики URL ***
 
 
 @app.route("/")
 def index():
-    print(list_of_integers)  #@
-    return render_template(
-        "index.html",
-        numbers=list_of_integers
-    )
+    # Обратите внимание, как передаётся параметр `numbers` в шаблон
+    # и как в шаблоне указана подстановка значений через `{{ n }}`
+    return render_template("index.html", numbers=list_of_integers)
 
 
 @app.route("/save/<number>")
