@@ -12,18 +12,12 @@ app = Flask(__name__)
 cloakroom = cr.Cloakroom(100)
 
 
-def _get_all_tags():
-    acquired_tags = cloakroom.get_acquired_tags()
-    free_tags = cloakroom.get_free_tags()
-    return [*acquired_tags, *free_tags]
-
-
 @app.route("/")
 def index():
-    all_tags = _get_all_tags()
     return render_template(
         "index.html",
-        all_tags=all_tags
+        f_tags=cloakroom.get_free_tags(),
+        a_tags=cloakroom.get_acquired_tags()
     )
 
 
@@ -37,10 +31,10 @@ def acquire_free_tag():
     except cr.NotEnoughTagsError:
         error_message = "Нет свободных номерков!"
 
-    all_tags = _get_all_tags()
     return render_template(
         "index.html",
-        all_tags=all_tags,
+        f_tags=cloakroom.get_free_tags(),
+        a_tags=cloakroom.get_acquired_tags(),
         acquired_tag=tag,
         error_message=error_message
     )

@@ -3,16 +3,29 @@
 {% block body %}
     <h1>{% block title %}Пульт управления гардеробом{% endblock %}</h1>
 
-    {% if all_tags %}
+    {# Вывод таблицы #}
+    {# ------------- #}
+    {% if f_tags %}
+        <h2>Свободные номерки</h2>
         <p>
-            {% for tag in all_tags %}
-            <code style="background: #ccc;">
-                <a href="#">{{ tag }}</a>
-            </code>
+            {% for tag in f_tags %}
+            <code style="background: #ccc; margin: 0 0.5em;"><b>{{ tag }}</b></code>
+            {% endfor %}
+        </p>
+    {% endif %}
+    {% if a_tags %}
+        <h2>Выданные номерки</h2>
+        <p><sub>Нажмите на соответствующий номерок, чтобы вернуть его в гардероб.</sub></p>
+        <p>
+            {% for tag in a_tags %}
+            <code style="background: #ccc; margin: 0 0.5em;"><a href="#">{{ tag }}</a></code>
             {% endfor %}
         </p>
     {% endif %}
 
+
+    {# Вывод сообщений #}
+    {# --------------- #}
     {% if acquired_tag %}
         <p>Выдан номерок: <b>{{ acquired_tag }}</b></p>
     {% endif %}
@@ -25,6 +38,9 @@
         <p style="color: red;">{{ error_message }}</p>
     {% endif %}
 
+
+    {# Ссылки как элементы управления #}
+    {# ------------------------------ #}
     <ul>
         <li><a href="{{ url_for('acquire_free_tag') }}">Выдать номерок</a></li>
     </ul>
