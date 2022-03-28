@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+
+{% block body %}
+    <h1>{% block title %}Пульт управления гардеробом{% endblock %}</h1>
+
+    {% if all_tags %}
+        <p>
+            {% for tag in all_tags %}
+            <code style="background: #ccc;">
+                <a href="#">{{ tag }}</a>
+            </code>
+            {% endfor %}
+        </p>
+    {% endif %}
+
+    {% if acquired_tag %}
+        <p>Выдан номерок: <b>{{ acquired_tag }}</b></p>
+    {% endif %}
+
+    {% if returned_tag %}
+        <p>Возвращён номерок: <b>{{ returned_tag }}</b></p>
+    {% endif %}
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    <ul>
+        <li><a href="{{ url_for('acquire_free_tag') }}">Выдать номерок</a></li>
+    </ul>
+{% endblock %}
