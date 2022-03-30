@@ -3,7 +3,7 @@ from flask import Flask, render_template
 import cloakroom as cr
 
 
-# Вычисляем рабочую директорию (где лежит это файл `main.py`) и задаём путь к файлу сохранения
+# Вычисляем рабочую директорию (где лежит это файл `main_2022_03_30.py`) и задаём путь к файлу сохранения
 WORK_DIR = Path(__file__).absolute().parent
 SAVE_FILENAME = WORK_DIR / Path("tags.sav")
 

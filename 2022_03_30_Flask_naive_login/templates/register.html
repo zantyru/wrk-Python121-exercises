@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+    <h1>Регистрация</h1>
+
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+
+    {% if message %}
+    <p>{{ message }}</p>
+    {% message %}
+
+    <form action="{{ url_for('register') }}" method="get">
+        <input type="text" name="lgn" placeholder="логин"><br>
+        <input type="password" name="pwd" placeholder="пароль"><br>
+        <input type="submit"><br>
+        <a href="{{ url_for('index') }}">Вход</a>
+    </form>
+</body>
+</html>

@@ -11,7 +11,7 @@ DB_FILENAME = WORK_DIR / Path("numbers.txt")
 app = Flask(__name__)
 
 # Список чисел, который загружен из файла
-list_of_integers = []
+list_of_integers = db.load(DB_FILENAME)
 
 
 # *** Обработчики URL ***
@@ -26,9 +26,12 @@ def index():
 
 @app.route("/save/<number>")
 def save(number=None):
+    global list_of_integers
     if number is not None:
         db.save(DB_FILENAME, number)
-        return render_template("save_success.html")
+        list_of_integers = db.load(DB_FILENAME)
+        # list_of_integers.append(number)
+        return render_template("save_success.html", number=number)
     return render_template("save_fail.html")
 
 
