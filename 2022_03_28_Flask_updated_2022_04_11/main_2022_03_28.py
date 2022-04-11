@@ -1,6 +1,7 @@
 from pathlib import Path
 from flask import Flask, render_template
 import cloakroom as cr
+import saver_loader
 
 
 # Вычисляем рабочую директорию (где лежит это файл `main_2022_03_30.py`) и задаём путь к файлу сохранения
@@ -14,6 +15,7 @@ cloakroom = cr.Cloakroom(100)
 
 @app.route("/")
 def index():
+    saver_loader.load(SAVE_FILENAME, cloakroom)
     return render_template(
         "index.html",
         f_tags=cloakroom.get_free_tags(),
@@ -28,6 +30,7 @@ def acquire_free_tag():
 
     try:
         tag = cloakroom.acquire_free_tag()
+        saver_loader.save(SAVE_FILENAME, cloakroom)
     except cr.NotEnoughTagsError:
         error_message = "Нет свободных номерков!"
 
@@ -42,7 +45,26 @@ def acquire_free_tag():
 
 @app.route("/return_tag/<tag>")
 def return_tag(tag=None):
-    ...
+    error_message = ""
+
+    try:
+        tag = int(tag)
+        cloakroom.return_tag(tag)
+        saver_loader.save(SAVE_FILENAME, cloakroom)
+    except (TypeError, ValueError) as _:
+        error_message = f"Передан не номерок: {tag}!"
+    except cr.TagAlreadyReturnedError:
+        error_message = "Номерок и так уже свободный!"
+    except cr.UnknownTagError:
+        error_message = f"Попытка вернут ошибочный номерок: {tag}!"
+
+    return render_template(
+        "index.html",
+        f_tags=cloakroom.get_free_tags(),
+        a_tags=cloakroom.get_acquired_tags(),
+        returned_tag=tag,
+        error_message=error_message
+    )
 
 
 @app.route("/is_tag_acquired/<tag>")

@@ -18,7 +18,7 @@
         <p><sub>Нажмите на соответствующий номерок, чтобы вернуть его в гардероб.</sub></p>
         <p>
             {% for tag in a_tags %}
-            <code style="background: #ccc; margin: 0 0.5em;"><a href="#">{{ tag }}</a></code>
+            <code style="background: #ccc; margin: 0 0.5em;"><a href="\return_tag\{{ tag }}">{{ tag }}</a></code>
             {% endfor %}
         </p>
     {% endif %}
